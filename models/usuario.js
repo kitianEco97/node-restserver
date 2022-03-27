@@ -34,7 +34,8 @@ const UsuarioSchema = Schema({
 
 UsuarioSchema.methods.toJSON = function() {
     // para quitar los valores de los parametros '__v, password'
-    const { __v, password, ...usuario } = this.toObject();
+    const { __v, password, _id, ...usuario } = this.toObject();
+    usuario.uid = _id;
     return usuario; // usuario no contiene __v ni password
 }
 
