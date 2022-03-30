@@ -51,13 +51,13 @@ const login = async(req, res = response) => {
     }    
 }
 
-const googleSignIn = async (req, res = response) => {
+const googleSignIn = async(req, res = response) => {
 
     const { id_token } = req.body;
-
+    
     try {
         const { correo, nombre, img } = await googleVerify( id_token );
-        console.log(correo);
+
         let usuario = await Usuario.findOne({ correo });
 
         if ( !usuario ) {
@@ -65,34 +65,35 @@ const googleSignIn = async (req, res = response) => {
             const data = {
                 nombre,
                 correo,
-                password: ':p',
+                password: ':P',
                 img,
-                google: true,
+                google: true
             };
-            
+
             usuario = new Usuario( data );
             await usuario.save();
         }
-        // si el usuario en BBDD
+
+        // Si el usuario en DB
         if ( !usuario.estado ) {
             return res.status(401).json({
-                msg: 'hable con el administrador, usuario bloqueado'
+                msg: 'Hable con el administrador, usuario bloqueado'
             });
         }
 
-        // generar el JWT
-        const token = await generarJWT(usuario.id);
-
+        // Generar el JWT
+        const token = await generarJWT( usuario.id );
+        
         res.json({
             usuario,
             token
         });
+        
     } catch (error) {
-        console.log(error);
-        res.status(401).json({
-            ok: false,
-            msg: 'el token no se pudo verificar'
-        })
+
+        res.status(400).json({
+            msg: 'Token de Google no es válido'
+        });
     }
 
 }
