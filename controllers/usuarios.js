@@ -55,18 +55,18 @@ const usuariosPut = async (req, res = response) => {
     res.json(usuario);
 }
 
-const usuariosPatch = (req, res = response) => {
-    res.json({        
-        msg: 'patch Api - controlador'
-    });
-}
-
 const usuariosDelete = async (req, res = response) => {
 
     const { id } = req.params;
     const usuario = await Usuario.findByIdAndUpdate(id, {estado: false});
 
     res.json(usuario);
+}
+
+const usuariosPatch = (req, res = response) => {
+    res.json({        
+        msg: 'patch Api - controlador'
+    });
 }
 
 module.exports = {
