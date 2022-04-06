@@ -20,8 +20,7 @@ const buscarCategorias = async ( termino = '', res = response ) => {
             results: ( categoria ) ? [categoria] : []
         });
     }
-
-    const regexp = new RegExp( termino, 'i' )
+    const regexp = new RegExp( termino, 'i' );
 
     const categorias = await Categoria.find( {nombre: regexp, estado: true} );
 
@@ -41,7 +40,7 @@ const buscarProductos = async ( termino = '', res = response ) => {
         });
     }
 
-    const regexp = new RegExp( termino, 'i' )
+    const regexp = new RegExp( termino, 'i' );
 
     const productos = await Producto.find( {nombre: regexp, estado: true} )
                                         .populate('categoria', 'nombre');
@@ -62,7 +61,7 @@ const buscarUsuarios = async ( termino = '', res = response ) => {
         });
     }
 
-    const regexp = new RegExp( termino, 'i' )
+    const regexp = new RegExp( termino, 'i' );
 
     const usuarios = await Usuario.find({
         $or: [{nombre: regexp}, {correo: regexp}],

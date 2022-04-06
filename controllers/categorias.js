@@ -36,6 +36,7 @@ const obtenerCategoriaById = async(req, res = response) => {
 
 }
 
+// crearCategoria
 const crearCategoria = async(req, res = response ) => {
 
     const nombre = req.body.nombre;
